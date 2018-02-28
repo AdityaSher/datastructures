@@ -1,0 +1,10 @@
+F:\github\datastructures\datastructures\slinkedlist.cpp: In function 'void AddNodes()':
+F:\github\datastructures\datastructures\slinkedlist.cpp:20:7: error: 'head' was not declared in this scope
+       head->link=current; // LINKING HEAD TO CURRENT NODE!
+       ^
+F:\github\datastructures\datastructures\slinkedlist.cpp:20:18: error: 'current' was not declared in this scope
+       head->link=current; // LINKING HEAD TO CURRENT NODE!
+                  ^
+F:\github\datastructures\datastructures\slinkedlist.cpp:34:9: error: 'current' was not declared in this scope
+         current->link
+         ^
