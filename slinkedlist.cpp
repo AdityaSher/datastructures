@@ -14,7 +14,7 @@ NODE* head=NULL; //note: *warning dont declare it inside main without passing it
 NODE* current=NULL; //note: *warning dont declare it inside main without passing it to other functions!
 NODE* temp=NULL;//note: *warning dont declare it inside main without passing it to other functions!
 
-int AddNodes(); // function for adding nodes
+int CreateList(); // function for creating list
 int PrintList(); // function to print the singly linked list
 int CountNodes(); //function to count nodes
 int InsertNode();// function to insert node at selected position
@@ -31,10 +31,10 @@ while(choice!=9)
 {
 
 	printf("\nChoose what to do: \n");
-	printf("\n1.Add nodes\n2.Create nodes \n3.Count nodes\n4.Insert Node \n5.Delete Node \n6.Search Node by value \n7.Print List in reverse \n9. Exit \n");
+	printf("\n1.Create List\n2.Create nodes \n3.Count nodes\n4.Insert Node \n5.Delete Node \n6.Search Node by value \n7.Print List in reverse \n9. Exit \n");
 	scanf("%d",&choice);
 	switch (choice) {
-		case 1: AddNodes();
+		case 1: CreateList();
 						break;
 		case 2: PrintList();
 						break;
@@ -60,7 +60,7 @@ while(choice!=9)
 
 }
 
-int AddNodes()
+int CreateList()
 {
 	int n,loop,value;
 
