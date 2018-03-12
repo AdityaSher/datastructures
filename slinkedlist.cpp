@@ -10,19 +10,36 @@ struct node{
 typedef struct node NODE; // defininf struct node as one word "NODE"
 
 NODE* head=NULL; //note: *warning dont declare it inside main without passing it to other functions!
+// note: *DONT ALLOCATE HEAD ITS JUST A NORMAL POINTER*
 NODE* current=NULL; //note: *warning dont declare it inside main without passing it to other functions!
 NODE* temp=NULL;//note: *warning dont declare it inside main without passing it to other functions!
 
 int AddNodes(); // function for adding nodes
 int PrintList(); // function to print the singly linked list
-
+int CountNodes(); //function to count nodes
 
 int main()
 {
-	current=(NODE*)malloc(sizeof(NODE));
+	int choice;
+	current=(NODE*)malloc(sizeof(NODE));//allocation of traversing variable must be done only once
+	printf("Choose what to do: \n");
+	printf("1. Add nodes\n 2. Create nodes 3. Count nodes\n 9. Exit");
 
-	AddNodes();
-	PrintList();
+	switch (choice) {
+		case 1: AddNodes();
+						break;
+		case 2: PrintList();
+						break;
+		case 3: CountNodes();
+						break;
+		case 9: exit();
+						break
+		default: printf("Enter Proper Input");
+						 break;
+
+	}
+
+
 
 }
 
@@ -31,7 +48,7 @@ int AddNodes()
 	int n,loop,value;
 
 
-	printf("How many nodes do you want to add ");
+	printf("How many nodes do you want to add? ");
 	scanf("%d",&n);  // ASKING USER THE LENGTH OF THE LIST
 
 		for(loop=0;loop<n;loop++){
@@ -57,12 +74,23 @@ int AddNodes()
 
 int PrintList(){
 
-						current=head;
-						 while(current!=NULL){ //condition such that current will reach last block go to the null pointer and then stop
-							 		printf("%2d" ,current->data );
-									current=current->link;
+			current=head;
+			while(current!=NULL){ //condition such that current will reach last block and become equal to NULL and then stop
+			printf("%2d" ,current->data );
+			current=current->link;
 
-						 }
+		}
 
 
 }
+//INT PrintList ENDS
+int count=0;
+int CountNodes(){
+			current=head;
+			while(current!=NULL){
+						count++;
+						current=current->link;
+			}
+
+			printf("Number of nodes is= %d \n",count);
+}// INT CountNodes ENDS
