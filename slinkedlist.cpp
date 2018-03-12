@@ -19,6 +19,7 @@ int PrintList(); // function to print the singly linked list
 int CountNodes(); //function to count nodes
 int InsertNode();// function to insert node at selected position
 int DeleteNode();//function to delete node from selected position
+int SearchNode();//finding node by data
 int main()
 {
 	int choice=0;
@@ -29,7 +30,7 @@ while(choice!=9)
 {
 
 	printf("Choose what to do: \n");
-	printf("1. Add nodes\n2. Create nodes \n3. Count nodes\n4. Insert Node \n9. Exit \n");
+	printf("1. Add nodes\n2. Create nodes \n3. Count nodes\n4. Insert Node \n5.Search Node by value \n9. Exit \n");
 	scanf("%d",&choice);
 	switch (choice) {
 		case 1: AddNodes();
@@ -41,6 +42,8 @@ while(choice!=9)
 		case 4: InsertNode();
 						break;
 		case 5: DeleteNode();
+						break;
+		case 6: SearchNode();
 						break;
 		case 9: exit;
 						break;
@@ -87,7 +90,7 @@ int PrintList(){
 
 			current=head;
 			while(current!=NULL){ //condition such that current will reach last block and become equal to NULL and then stop
-			printf("%2d" ,current->data );
+			printf("%2d ->" ,current->data );
 			current=current->link;
 
 		}
@@ -104,6 +107,8 @@ int CountNodes(){
 			}
 
 			printf("Number of nodes is= %d \n",count);
+
+			return count;
 }// INT CountNodes ENDS
 
 
@@ -175,33 +180,36 @@ int InsertNode(){
 }//InsertNode ENDS
 
 int DeleteNode(){
-	int position,count;
+	int position;
 	temp=NULL; // avoiding temp pointing to garbage value
 	temp=(NODE*)malloc(sizeof(NODE)); // allocating temp
 	count=CountNodes(); // because we need size of list
 	current=head;
-
+	printf("\n");
+	printf("Current number of nodes is as below\n");
+	printf("\n");
+	CountNodes();
 	printf("Which Node do you want to delete?");
-	printf("\n1. Beginning \n2. Middle \n3. Last \n4.Custom");
+	printf("\n1. Beginning \n2. Middle \n3. Last \n4.Custom ");
 	scanf("%d",&position);
 	switch(position){
 		case 1://delete node at beginning
 					{	temp->link=NULL;
 						current=head; //saving current first node in current
 						head=temp;// changing first node to temp
-						temp->link=current;//linking new first node to old first node
+						temp=current->link;//linking new first (originally second)with
 						break;
 					}
 		case 2:
 					{//delete middle node
 						temp->link=NULL;
 						current=head;
-						for(int x=0;x<=count/2;x++){
-									if(x=count/2-1){
-										temp=current;
-									}
-									current=current->link;
+						for(int x=0;x<=count/2-1;x++){
+
+										current=current->link;// for traversing till middle-1
+										temp=current; //save middle-1 node as temp
 						}
+						current=current->link; //traverse to middle node
 						temp->link=current->link;
 						break;
 					}
@@ -242,8 +250,28 @@ int DeleteNode(){
 						/*we over-ride the link of last node
 						present in second last node:
 						in order to remove the last node*/
-						
+
 						break;
 					}
 	}
+	printf("\n");
+	printf("Let's Check the list now!\n");
+	PrintList();
+}
+
+
+int SearchNode(){//finding a node by value
+		int value;
+		printf("Enter value to be found\n");
+		scanf("%d",value );
+		int n=CountNodes();
+		current=head;//start traversing
+		for(int x=0;x<n;x++){
+				if(current->data=value){
+					printf("The element %d you searched is at node number%d\n",value,x+1 );
+				printf("You can check it as below\n");
+				PrintList();
+				}
+			 current=current->link;//traverse to next node
+		}
 }
