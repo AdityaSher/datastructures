@@ -8,3 +8,5 @@ cmake-build-debug
 .idea/datastructures.iml
 .idea/modules.xml
 .idea/workspace.xml
+
+compiling_error.txt

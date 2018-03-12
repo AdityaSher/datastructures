@@ -87,7 +87,7 @@ int CreateList()
 			}//end of for
 
 }
-//INT ADD NODES ENDS
+//INT CreateList ENDS
 
 int PrintList(){
 
