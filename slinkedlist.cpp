@@ -20,6 +20,7 @@ int CountNodes(); //function to count nodes
 int InsertNode();// function to insert node at selected position
 int DeleteNode();//function to delete node from selected position
 int SearchNode();//finding node by data
+int PrintReverse(); //print the list in reverse without actually reversing the list
 int main()
 {
 	int choice=0;
@@ -29,8 +30,8 @@ int main()
 while(choice!=9)
 {
 
-	printf("Choose what to do: \n");
-	printf("1. Add nodes\n2. Create nodes \n3. Count nodes\n4. Insert Node \n5.Search Node by value \n9. Exit \n");
+	printf("\nChoose what to do: \n");
+	printf("\n1.Add nodes\n2.Create nodes \n3.Count nodes\n4.Insert Node \n5.Delete Node \n6.Search Node by value \n7.Print List in reverse \n9. Exit \n");
 	scanf("%d",&choice);
 	switch (choice) {
 		case 1: AddNodes();
@@ -45,6 +46,8 @@ while(choice!=9)
 						break;
 		case 6: SearchNode();
 						break;
+		case 7: PrintReverse();
+					  break;
 		case 9: exit;
 						break;
 		default: printf("Enter Proper Input");
@@ -128,7 +131,7 @@ int InsertNode(){
 						{	temp->link=NULL;
 							current=head;
 							current=current->link;//saving location of second node
-						  head=current->link //linking temp to second node by overriding existing node
+						  head=current->link; //linking temp to second node by overriding existing node
 							break;
 						}
 			case 2:
@@ -263,7 +266,7 @@ int DeleteNode(){
 int SearchNode(){//finding a node by value
 		int value;
 		printf("Enter value to be found\n");
-		scanf("%d",value );
+		scanf("%d",&value );
 		int n=CountNodes();
 		current=head;//start traversing
 		for(int x=0;x<n;x++){
@@ -271,7 +274,25 @@ int SearchNode(){//finding a node by value
 					printf("The element %d you searched is at node number%d\n",value,x+1 );
 				printf("You can check it as below\n");
 				PrintList();
-				}
+
+			}//if ends
 			 current=current->link;//traverse to next node
 		}
 }
+/*help please help me in correcting this function*/
+/*int PrintReverse(){//print linked list in reverse without actually reversing
+				int i,j,n,value;
+				n=CountNodes();
+				free(current);
+				current=NULL;
+
+				for(i=n;i>=0;i--){
+						current=head;
+					for(j=0;j<i;j++){
+							current=current->link;
+
+					}
+						printf("i=%d j=%d\n",i,j);
+					}
+}
+converted function to comment till I am able to repair it!*/
