@@ -31,7 +31,7 @@ while(choice!=9)
 {
 
 	printf("\nChoose what to do: \n");
-	printf("\n1.Create List\n2.Create nodes \n3.Count nodes\n4.Insert Node \n5.Delete Node \n6.Search Node by value \n7.Print List in reverse \n9. Exit \n");
+	printf("\n1.Create List\n2.Print List \n3.Count nodes\n4.Insert Node \n5.Delete Node \n6.Search Node by value \n7.Print List in reverse \n9. Exit \n");
 	scanf("%d",&choice);
 	switch (choice) {
 		case 1: CreateList();
@@ -46,7 +46,7 @@ while(choice!=9)
 						break;
 		case 6: SearchNode();
 						break;
-		case 7: PrintReverse(node* head)
+		case 7: PrintReverse();
 					  break;
 		case 9: exit;
 						break;
@@ -280,24 +280,22 @@ int SearchNode(){//finding a node by value
 			 current=current->link;//traverse to next node
 		}
 }
-/*help please help me in correcting this function*/
-/*
+
 int PrintReverse(){//print linked list in reverse without actually reversing
+				NODE* rev;
+
 				int i,j,n,value;
 				n=CountNodes();
 				printf("The reversed list is\n" );
-				for(i=n;i>=0;i--){
-						current=head;
-					for(j=0;j<=n;j++){
-						current=current->link;
+				for(i=n;i>0;i--){
+
+						rev=head;
+					for(j=1;j<i;j++){
+						rev=rev->link;
 
 					}
 						printf("i=%d j=%d \n",i,j );
-						printf("%2d-> \n",current->data );
+						printf("%d-> \n",rev->data);
+						
 					}
-} coverted to comment and wrote alternative code*/
-
-int PrintReverse(node* head){//print linked list in reverse without actually reversing
-
-
 }
