@@ -288,14 +288,13 @@ int PrintReverse(){//print linked list in reverse without actually reversing
 				n=CountNodes();
 				printf("The reversed list is\n" );
 				for(i=n;i>0;i--){
+					rev=head;
 
-						rev=head;
 					for(j=1;j<i;j++){
 						rev=rev->link;
 
 					}
 						printf("i=%d j=%d \n",i,j );
 						printf("%d-> \n",rev->data);
-						
 					}
 }
