@@ -15,10 +15,10 @@ NODE* head2=NULL;
 NODE* current=NULL;
 NODE* temp=NULL;
 
-int CreateList1();
-int CreateList2();
+int CreateList(NODE** head); //**pointer of pointer of type NODE
 int MergeList();
 int PrintList();
+
 int main()
 {
   int choice;
@@ -27,10 +27,12 @@ int main()
 
   if(choice==1)
   {
-  	CreateList1();
-  	CreateList2();
+  	CreateList(&head1);
+  	CreateList(&head2);
 
   }
+
+  choice=0;
 
   printf("Enter 1 to merge and display the linked list ");
   scanf("%d",&choice);
@@ -38,17 +40,17 @@ int main()
   if(choice==1)
   {
     MergeList();
- 	  PrintList();
+    PrintList();
   }
 }
 
 
-int CreateList1()
+int CreateList(NODE** head)
 {
 	int n,loop,value;
 
 
-	printf("How many nodes do you want to add in list 1? ");
+	printf("How many nodes do you want to add? ");
 	scanf("%d",&n);  // ASKING USER THE LENGTH OF THE LIST
 
 		for(loop=0;loop<n;loop++){
@@ -57,9 +59,9 @@ int CreateList1()
 				printf("\n Enter value at node %d= ",loop+1);
 				scanf("%d",&temp->data);
 
-				if(head1==NULL)
+				if(*head==NULL)
 					{
-						head1=temp;
+						*head=temp;//
 					}
 				else{
 
@@ -70,54 +72,26 @@ int CreateList1()
 			}//end of for
 
 }
-//INT CreateList1 ENDS
 
-
-int CreateList2()
+int MergeList()
 {
-	int n,loop,value;
+  current=(NODE*)malloc(sizeof(NODE));
+  current=head1;
 
-
-	printf("How many nodes do you want to add in list 2 ? ");
-	scanf("%d",&n);  // ASKING USER THE LENGTH OF THE LIST
-
-		for(loop=0;loop<n;loop++){
-				temp=(NODE*)malloc(sizeof(NODE));
-				temp->link=NULL;
-				printf("\n Enter value at node %d= ",loop+1);
-				scanf("%d",&temp->data);
-
-				if(head2==NULL)
-					{
-						head2=temp;
-					}
-				else{
-
-					current->link=temp;
-				}
-
-				current=temp;
-			}//end of for
-
-}
-//INT CreateList2 ENDS
-
-
-int mergeList()
-{ current=head1;
   while(current->link!=NULL)
-  {
+  {   printf("This is working\n");
     current=current->link;
+    printf("%d -> \n",current->data);
   }
   current->link=head2;
+  printf("This is working\n");
 }
 
-int PrintList()
-{
-  current=head1;
-	while(current!=NULL)
-  {   //condition such that current will reach last block and become equal to NULL and then stop
-	  printf("%2d ->" ,current->data );
-	  current=current->link;
-  }
+int PrintList(){
+      current=(NODE*)malloc(sizeof(NODE));
+			current=head1;
+			while(current!=NULL){ //condition such that current will reach last block and become equal to NULL and then stop
+			printf("%d ->" ,current->data );
+			current=current->link;
+		}
 }
