@@ -61,7 +61,7 @@ int CreateList(NODE** head)
 
 				if(*head==NULL)
 					{
-						*head=temp;//
+						*head=temp;//*head is used to access head1 and head2
 					}
 				else{
 
