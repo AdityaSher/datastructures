@@ -17,17 +17,29 @@ NODE* temp=NULL;
 
 int CreateList1();
 int CreateList2();
-int mergeList();
+int MergeList();
 int PrintList();
 int main()
 {
   int choice;
-  printf("Do you want to create both linked list? Enter 1 for yes");
-  scanf("%d",choice);
-  CreateList1();
-  CreateList2();
-  mergeList();
-  PrintList();
+  printf("Do you want to create both linked list? Enter 1 for yes ");
+  scanf("%d",&choice);
+
+  if(choice==1)
+  {
+  	CreateList1();
+  	CreateList2();
+
+  }
+
+  printf("Enter 1 to merge and display the linked list ");
+  scanf("%d",&choice);
+
+  if(choice==1)
+  {
+    MergeList();
+ 	  PrintList();
+  }
 }
 
 
@@ -36,7 +48,7 @@ int CreateList1()
 	int n,loop,value;
 
 
-	printf("How many nodes do you want to add? ");
+	printf("How many nodes do you want to add in list 1? ");
 	scanf("%d",&n);  // ASKING USER THE LENGTH OF THE LIST
 
 		for(loop=0;loop<n;loop++){
@@ -66,7 +78,7 @@ int CreateList2()
 	int n,loop,value;
 
 
-	printf("How many nodes do you want to add? ");
+	printf("How many nodes do you want to add in list 2 ? ");
 	scanf("%d",&n);  // ASKING USER THE LENGTH OF THE LIST
 
 		for(loop=0;loop<n;loop++){
