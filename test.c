@@ -1,61 +1,67 @@
-// C program for array implementation of stack
+// C program for linked list implementation of stack
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
  
 // A structure to represent a stack
-struct Stack
+struct StackNode
 {
-    int top;
-    unsigned capacity;
-    int* array;
-};
+    int data;
+    struct StackNode* next;
+}; // declaration of NODE of stack
  
-// function to create a stack of given capacity. It initializes size of
-// stack as 0
-struct Stack* createStack(unsigned capacity)
+struct StackNode* newNode(int data)
 {
-    struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack));
-    stack->capacity = capacity;
-    stack->top = -1;
-    stack->array = (int*) malloc(stack->capacity * sizeof(int));
-    return stack;
+    struct StackNode* stackNode =
+              (struct StackNode*) malloc(sizeof(struct StackNode));
+    stackNode->data = data;
+    stackNode->next = NULL;
+    return stackNode;
 }
  
-// Stack is full when top is equal to the last index
-int isFull(struct Stack* stack)
-{   return stack->top == stack->capacity - 1; }
- 
-// Stack is empty when top is equal to -1
-int isEmpty(struct Stack* stack)
-{   return stack->top == -1;  }
- 
-// Function to add an item to stack.  It increases top by 1
-void push(struct Stack* stack, int item)
+int isEmpty(struct StackNode *root)
 {
-    if (isFull(stack))
-        return;
-    stack->array[++stack->top] = item;
-    printf("%d pushed to stack\n", item);
+    return !root;
 }
  
-// Function to remove an item from stack.  It decreases top by 1
-int pop(struct Stack* stack)
+void push(struct StackNode** root, int data)
 {
-    if (isEmpty(stack))
+    struct StackNode* stackNode = newNode(data);
+    stackNode->next = *root;
+    *root = stackNode;
+    printf("%d pushed to stack\n", data);
+}
+ 
+int pop(struct StackNode** root)
+{
+    if (isEmpty(*root))
         return INT_MIN;
-    return stack->array[stack->top--];
+    struct StackNode* temp = *root;
+    *root = (*root)->next;
+    int popped = temp->data;
+    free(temp);
+ 
+    return popped;
 }
-// Driver program to test above functions
+ 
+int peek(struct StackNode* root)
+{
+    if (isEmpty(root))
+        	return INT_MIN;
+    return root->data;
+}
+ 
 int main()
 {
-    struct Stack* stack = createStack(100);
+    struct StackNode* root = NULL;
  
-    push(stack, 10);
-    push(stack, 20);
-    push(stack, 30);
+    push(&root, 10);
+    push(&root, 20);
+    push(&root, 30);
  
-    printf("%d popped from stack\n", pop(stack));
+    printf("%d popped from stack\n", pop(&root));
+ 
+    printf("Top element is %d\n", peek(root));
  
     return 0;
 }
