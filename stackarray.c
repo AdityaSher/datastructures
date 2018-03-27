@@ -6,14 +6,14 @@
 
 struct Stack{
 	int top; //indicates top value
-	unsigned container; 
+	unsigned capacity; 
 	int *array;
 };
 
 // function to create a stack of given capacity. It initializes size of stack as 0
-typdedef struct Stack STACK;
+
 struct Stack* createStack(unsigned capacity){
-	STACK* stack=(STACK*)malloc(sizeof(STACK));
+	struct Stack* stack=(struct Stack*)malloc(sizeof(struct Stack));
 	stack->capacity=capacity;
 	// Stack is empty when top is equal to -1
 	stack->top=-1;
@@ -23,13 +23,13 @@ struct Stack* createStack(unsigned capacity){
 
 //stack is full when top is equal ot last index of array [-1]
 
-int isFull(STACK* stack){
+int isFull(struct Stack* stack){
 return stack->top==stack->capacity -1;  //returns true or false
 }
 
 //Stack is empty when top is equal to -1
-int isEmpty(STACK* stack)
-{ return stack->top==-1}
+int isEmpty(struct Stack* stack)
+{ return stack->top==-1;}
 
 
 //Function to add an item to stack. It increases top by 1
@@ -41,13 +41,10 @@ void push(struct Stack* stack, int item){
 }
 
 //Function to remove an item from stack. It decreases top by 1
-int pop(STRCUT stack){
+int pop(struct Stack* stack){
 	if(isEmpty(stack))	
 		return INT_MIN;
+	return stack->array[stack->top--];	
 }
 
-    if (isEmpty(stack))
-        return INT_MIN;
-    return stack->array[stack->top--];
-}
-
+    
