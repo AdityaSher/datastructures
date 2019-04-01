@@ -14,13 +14,13 @@ NODE* head=NULL; //note: *warning dont declare it inside main without passing it
 NODE* current=NULL; //note: *warning dont declare it inside main without passing it to other functions!
 NODE* temp=NULL;//note: *warning dont declare it inside main without passing it to other functions!
 
-int CreateList(); // function for creating list
-int PrintList(); // function to print the singly linked list
+void CreateList(); // function for creating list
+void PrintList(); // function to print the singly linked list
 int CountNodes(); //function to count nodes
-int InsertNode();// function to insert node at selected position
-int DeleteNode();//function to delete node from selected position
-int SearchNode();//finding node by data
-int PrintReverse(); //print the list in reverse without actually reversing the list
+void InsertNode();// function to insert node at selected position
+void DeleteNode();//function to delete node from selected position
+void SearchNode();//finding node by data
+void PrintReverse(); //print the list in reverse without actually reversing the list
 int main()
 {
 	int choice=0;
@@ -60,7 +60,7 @@ while(choice!=9)
 
 }
 
-int CreateList()
+void CreateList()
 {
 	int n,loop,value;
 
@@ -89,7 +89,7 @@ int CreateList()
 }
 //INT CreateList ENDS
 
-int PrintList(){
+void PrintList(){
 
 			current=head;
 			while(current!=NULL){ //condition such that current will reach last block and become equal to NULL and then stop
@@ -103,7 +103,8 @@ int PrintList(){
 //INT PrintList ENDS
 
 int count=0;
-int CountNodes(){
+int  CountNodes(){
+	int count=0;
 			current=head;
 			while(current!=NULL){
 						count++;
@@ -111,12 +112,12 @@ int CountNodes(){
 			}
 
 			printf("Number of nodes is= %d \n",count);
-
-			return count;
+return count;
+		
 }// INT CountNodes ENDS
 
 
-int InsertNode(){
+void InsertNode(){
 		int position,count;
 		temp=NULL; // avoiding temp pointing to garbage value
 		temp=(NODE*)malloc(sizeof(NODE)); // allocating temp
@@ -129,31 +130,34 @@ int InsertNode(){
 		scanf("%d",&position);
 		switch(position){
 			case 1://first position node deleted
-						{	temp->link=NULL;
-							current=head;
-							current=current->link;//saving location of second node
-						  head=current->link; //linking temp to second node by overriding existing node
+						{	temp->link=current;
+							head=temp;
+							 //linking temp to second node by overriding existing node
 							break;
 						}
 			case 2:
 						{
 							temp->link=NULL;
 							current=head;
-							for(int x=0;x<=count/2;x++){
+							for(int x=1;x<(int)count/2;x++){
 
-								if(x=count/2-1){
-									temp=current;
-								}
-										current=current->link;
+								current=current->link;}
 
-							}
-										temp->link=current->link;
+								temp->link=current->link;
+								current->link=temp;
 
 							break;
 						}
 
 			case 3:
 						{
+							  if (head == NULL) {
+    { 
+       							head = temp; 
+       							temp->link=NULL;
+       						}
+       							break; 
+    } 	
 							temp->link=NULL;
 							current=head;
 							while(current->link!=NULL){
@@ -169,11 +173,11 @@ int InsertNode(){
 							current=head;
 							printf("At what location do you want to insert node?\n");\
 							scanf("%d",&custom);
-							for(int x=0;x<custom;x++){
+							for(int x=1;x<custom-1;x++){
 										current=current->link;
 							}
+							temp->link=current->link;
 							current->link=temp;
-							temp->link=NULL;
 							break;
 						}
 		}
@@ -183,7 +187,7 @@ int InsertNode(){
 
 }//InsertNode ENDS
 
-int DeleteNode(){
+void DeleteNode(){
 	int position;
 	temp=NULL; // avoiding temp pointing to garbage value
 	temp=(NODE*)malloc(sizeof(NODE)); // allocating temp
@@ -198,42 +202,36 @@ int DeleteNode(){
 	scanf("%d",&position);
 	switch(position){
 		case 1://delete node at beginning
-					{	temp->link=NULL;
-						current=head; //saving current first node in current
-						head=temp;// changing first node to temp
-						temp=current->link;//linking new first (originally second)with
+					{	temp=head;
+						head=head->link;
+					free(temp);//linking new first (originally second)with
 						break;
 					}
 		case 2:
 					{//delete middle node
 						temp->link=NULL;
 						current=head;
-						for(int x=0;x<=count/2-1;x++){
+						for(int x=1;x<=(int)count/2-1;x++){
 
 										current=current->link;// for traversing till middle-1
 										temp=current; //save middle-1 node as temp
 						}
-						current=current->link; //traverse to middle node
-						temp->link=current->link;
+						temp=current->link;
+						current->link=current->link->link;
+						free(temp);
 						break;
 					}
 
 		case 3:
 					{//delete last node
-						temp->link=NULL;//initializing temp
-						current=head;//start traversing
-						temp=current; //first save currents old value (present node-1) in NULL
-						current=current->link;//go to next node
-						if (current->link==NULL) {
-							/* as we reach last node
-							current is last node
-							but temp is the second last node*/
-							temp->link=NULL;
-							/*we over-ride the link of last node
-							present in second last node:
-							in order to remove the last node*/
-
+						temp=head;//initializing temp
+					//go to next node
+						while(temp->link->link!=NULL)
+						{
+							temp=temp->link;
 						}
+						temp->link=NULL;
+
 						break;
 					}
 		case 4://removing value at custom node!
@@ -243,14 +241,17 @@ int DeleteNode(){
 
 						printf("Which node do you wish to remove\n");\
 						scanf("%d",&custom);
-						for(int x=0;x<custom;x++){
-							temp=current; //first save currents old value (present node-1) in NULL
+						for(int x=1;x<=custom-2;x++){
+							 //first save currents old value (present node-1) in NULL
 							current=current->link;//go to next node
 						}
+						temp=current->link;
+						current->link=current->link->link;
+						free(temp);
 						/* as we reach last node
 						current is last node
 						but temp is the second last node*/
-						temp->link=NULL;
+						
 						/*we over-ride the link of last node
 						present in second last node:
 						in order to remove the last node*/
@@ -264,24 +265,27 @@ int DeleteNode(){
 }
 
 
-int SearchNode(){//finding a node by value
+void SearchNode(){//finding a node by value
 		int value;
 		printf("Enter value to be found\n");
 		scanf("%d",&value );
 		int n=CountNodes();
 		current=head;//start traversing
 		for(int x=0;x<n;x++){
-				if(current->data=value){
-					printf("The element %d you searched is at node number%d\n",value,x+1 );
+				if(current->data==value){
+					printf("The element %d you searched is at node number%d\n",value,x+1);
 				printf("You can check it as below\n");
 				PrintList();
+				break;
 
 			}//if ends
+			 else{
 			 current=current->link;//traverse to next node
 		}
+	}
 }
 
-int PrintReverse(){//print linked list in reverse without actually reversing
+void PrintReverse(){//print linked list in reverse without actually reversing
 				NODE* rev;
 
 				int i,j,n,value;
